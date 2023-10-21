@@ -17,6 +17,7 @@ import s3Config from '@config/s3.config';
 // import sqsConfig from '@config/sqs.config';
 import { TokenService } from '@modules/auth/token.service';
 import { TokenRepository } from '@modules/auth/token.repository';
+import { ResturantsModule } from '@modules/resturants/resturants.module';
 
 @Module({
   controllers: [],
@@ -41,6 +42,7 @@ import { TokenRepository } from '@modules/auth/token.repository';
     HealthModule,
     UserModule,
     AuthModule,
+    ResturantsModule,
   ],
   providers: [
     TokenService,

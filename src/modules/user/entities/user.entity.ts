@@ -21,4 +21,10 @@ export default class UserEntity implements User {
   readonly updatedAt!: Date;
 
   readonly isVerified!: boolean;
+
+  readonly address: string;
+
+  readonly latitude: number;
+
+  readonly longitude: number;
 }

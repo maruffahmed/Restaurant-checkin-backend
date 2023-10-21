@@ -14,7 +14,11 @@ model User {
   firstName String?
   lastName  String?
   password  String
+  address   String?
+  latitude  Float?
+  longitude Float?
   roles     Roles[]  @default([customer])
+  reviews ResturantReviews[]
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 }
@@ -33,4 +37,27 @@ model TokenWhiteList {
 enum Roles {
   admin
   customer
+}
+
+model Resturants{
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  image     String
+  address   String
+  latitude  Float
+  longitude Float
+  reviews   ResturantReviews[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model ResturantReviews{
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  resturant Resturants @relation(fields: [resturantId], references: [id])
+  resturantId String @db.ObjectId
+  user      User @relation(fields: [userId], references: [id])
+  userId    String @db.ObjectId
+  comment     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
 }
