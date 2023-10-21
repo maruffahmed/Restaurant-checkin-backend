@@ -1,0 +1,2 @@
+DATABASE_URL=mongodb+srv://username:password@aws.aivstjz.mongodb.net/restaurantcheckinreview?retryWrites=true&w=majority
+APP_PORT=8000
