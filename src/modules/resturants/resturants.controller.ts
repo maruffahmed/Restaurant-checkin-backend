@@ -12,6 +12,7 @@ import { ResturantsCreateDto } from './dto/resturants-create.dto';
 import { SkipAuth } from '@modules/auth/skip-auth.guard';
 import { ResturantReviewsService } from './resturant.reviews.service';
 import { ResturantReviewsCreateDto } from './dto/resturant-reviews-create.dto';
+import ResturantReviewsBaseEntity from './entities/resturant-reviews-base.entity';
 
 @ApiTags('Resturants')
 @ApiExtraModels(ResturantsBaseEntity)
@@ -43,15 +44,15 @@ export class ResturantsController {
   @SkipAuth()
   async create(
     @Body() resturantsCreateDto: ResturantsCreateDto,
-  ): Promise<PaginatorTypes.PaginatedResult<Resturants>> {
+  ): Promise<Resturants> {
     return this.resturantService.create(resturantsCreateDto);
   }
 
   @Get(':id/reviews')
   @ApiParam({ name: 'id', required: true, type: 'string' })
   @ApiQuery({ name: 'orderBy', required: false, type: 'string' })
-  @ApiOkBaseResponse({ dto: ResturantsBaseEntity, isArray: true })
-  @Serialize(ResturantsBaseEntity)
+  @ApiOkBaseResponse({ dto: ResturantReviewsBaseEntity, isArray: true })
+  @Serialize(ResturantReviewsBaseEntity)
   @SkipAuth()
   async findAllReviews(
     @Param('id') id: string,
@@ -67,13 +68,13 @@ export class ResturantsController {
   }
 
   @Post(':id/reviews')
-  @ApiOkBaseResponse({ dto: ResturantsBaseEntity, isArray: true })
-  @Serialize(ResturantsBaseEntity)
+  @ApiOkBaseResponse({ dto: ResturantReviewsBaseEntity, isArray: true })
+  @Serialize(ResturantReviewsBaseEntity)
   @SkipAuth()
   async createReview(
     @Body() resturantReviewsCreateDto: ResturantReviewsCreateDto,
     @Param('id') resturantId: string,
-  ): Promise<PaginatorTypes.PaginatedResult<ResturantReviews>> {
+  ): Promise<ResturantReviews> {
     return this.resturantReviewService.create(
       resturantReviewsCreateDto,
       resturantId,

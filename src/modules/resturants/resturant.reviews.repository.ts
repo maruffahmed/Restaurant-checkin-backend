@@ -38,6 +38,10 @@ export class ResturantReviewsRepository {
   ): Promise<ResturantReviews> {
     return this.prisma.resturantReviews.create({
       data,
+      include: {
+        resturant: true,
+        user: true,
+      },
     });
   }
 
