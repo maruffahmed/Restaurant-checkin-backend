@@ -49,6 +49,7 @@ export class AuthService {
    * @param signInDto - User credentials
    */
   async signIn(signInDto: SignInDto): Promise<Auth.AccessRefreshTokens> {
+    console.log('signInDto', signInDto);
     const testUser: User = await this.userRepository.findOne({
       where: {
         email: signInDto.email,
@@ -65,13 +66,12 @@ export class AuthService {
       // 404001: User not found
       throw new NotFoundException(NOT_FOUND);
     }
-
-    if (
-      !this.tokenService.isPasswordCorrect(
-        signInDto.password,
-        testUser.password,
-      )
-    ) {
+    const isPasswordCorrect = await this.tokenService.isPasswordCorrect(
+      signInDto.password,
+      testUser.password,
+    );
+    // console.log('isPasswordCorrect', isPasswordCorrect);
+    if (!isPasswordCorrect) {
       // 401001: Invalid credentials
       throw new UnauthorizedException(INVALID_CREDENTIALS);
     }
