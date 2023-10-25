@@ -26,7 +26,9 @@ async function bootstrap(): Promise<{ port: number }> {
    * Create NestJS application
    */
   const app: INestApplication = await NestFactory.create(AppModule, {
-    cors: true,
+    cors: {
+      origin: '*',
+    },
     bodyParser: true,
   });
 
